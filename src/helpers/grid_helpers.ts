@@ -155,7 +155,8 @@ export function getNextWordIndex({
     // Keep the current index if the next candidate is a black square.
     if (
       nextIndexCandidate >= layout.length ||
-      layout[nextIndexCandidate] === CellType.BLACK
+      layout[nextIndexCandidate] === CellType.BLACK ||
+      !isInBounds(nextIndexCandidate, layout)
     ) {
       return index;
     }
@@ -170,7 +171,8 @@ export function getNextWordIndex({
     // Keep the current index if the next candidate is a black square.
     if (
       nextIndexCandidate >= layout.length ||
-      layout[nextIndexCandidate] === CellType.BLACK
+      layout[nextIndexCandidate] === CellType.BLACK ||
+      !isInBounds(nextIndexCandidate, layout)
     ) {
       return index;
     }

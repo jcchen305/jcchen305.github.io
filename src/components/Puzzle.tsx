@@ -54,7 +54,10 @@ export function Puzzle({
     [],
   );
 
-  const cellClues = useMemo(() => getCellClueIdentifiers(gridDefinition), []);
+  const cellClues = useMemo(
+    () => getCellClueIdentifiers(gridDefinition),
+    [gridDefinition],
+  );
   const clues = getCluesGroupedByDirection({
     cellClues,
     rawCluesList: cluesList,

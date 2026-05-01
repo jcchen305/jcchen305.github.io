@@ -14,8 +14,6 @@ import {
 } from "../types/types.ts";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-const BASE_FONT_SIZE_PX = 28;
-
 export function Grid({
   gridDefinition,
   userGridState,
@@ -124,9 +122,13 @@ function WhiteCell({
   );
 
   const ref = useRef<HTMLDivElement>(null);
+  const [cellWidth, setCellWidth] = useState(0);
   useEffect(() => {
     if (cellHighlightState === "primary") {
       ref.current?.focus();
+    }
+    if (ref.current) {
+      setCellWidth(ref.current.clientWidth);
     }
   }, [cellHighlightState]);
 
@@ -313,10 +315,12 @@ function WhiteCell({
           ? "bg-gray-100 dark:bg-gray-500"
           : "bg-white dark:bg-gray-500";
 
-  const fontSize =
+  const baseFontSize = 0.6 * cellWidth;
+  const cellFontSize =
     currentValue.length > 0
-      ? BASE_FONT_SIZE_PX - 3 * (currentValue.length - 1)
-      : BASE_FONT_SIZE_PX;
+      ? baseFontSize - cellWidth * 0.1 * (currentValue.length - 1)
+      : baseFontSize;
+  const numberFontSize = 0.2 * cellWidth;
 
   return (
     <div
@@ -336,7 +340,7 @@ function WhiteCell({
           ref={rebusRef}
           className="absolute top-0 left-0 bottom-0 px-1 z-10 bg-white dark:bg-gray-500 min-w-full h-full"
           style={{
-            fontSize: BASE_FONT_SIZE_PX,
+            fontSize: `${baseFontSize}px`,
             width:
               rebusValue.length > 1
                 ? `calc(100% + ${rebusValue.length * 5}px)`
@@ -351,15 +355,21 @@ function WhiteCell({
       ) : (
         <>
           <span
-            className=" overflow-hidden"
+            className="flex self-center overflow-hidden h-full items-center"
             style={{
-              fontSize: `clamp(12px, ${fontSize}px, ${BASE_FONT_SIZE_PX}px)`,
+              fontSize: `${cellFontSize}px`,
             }}
           >
             {currentValue}
           </span>
           {cellNumber !== 0 && (
-            <span className="absolute top-0.5 left-0.5 text-[10px] leading-3 flex">
+            <span
+              className="absolute top-0.5 left-0.5 leading-3 flex ml-0.5"
+              style={{
+                fontSize: `${numberFontSize}px`,
+                lineHeight: `${numberFontSize}px`,
+              }}
+            >
               {cellNumber}
             </span>
           )}
