@@ -58,7 +58,7 @@ function findClosestClue({
   clues: Clues;
   gridDefinition: GridDefinition;
   cellClues: Array<CellClueIdentifier>;
-}): Clue {
+}): Clue | null {
   const { width } = gridDefinition;
   const doesCellHaveMatchingClue = (cell: CellClueIdentifier) => {
     if (direction === "across") {
@@ -78,7 +78,11 @@ function findClosestClue({
     currentCell = cellClues[currIndex];
   }
 
-  const { clueNumber } = currentCell!;
+  if (!currentCell) {
+    return null;
+  }
+
+  const { clueNumber } = currentCell;
   if (direction === "across") {
     return clues.acrossClues.find(
       (clue) => clue.clueNumber === clueNumber,

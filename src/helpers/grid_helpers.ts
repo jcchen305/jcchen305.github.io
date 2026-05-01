@@ -41,7 +41,12 @@ function isValidDownWord({
 }): boolean {
   const isTopRow = Math.floor(index / width) === 0;
   if (isTopRow || layout[index - width] === CellType.BLACK) {
-    return layout[index] !== CellType.BLACK;
+    return (
+      layout[index] !== CellType.BLACK &&
+      isInBounds(index + width, layout) &&
+      areInSameColumn(index, index + width, width) &&
+      layout[index + width] !== CellType.BLACK
+    );
   }
   return false;
 }
@@ -57,7 +62,12 @@ function isValidAcrossWord({
 }): boolean {
   const isLeftColumn = index % width === 0;
   if (isLeftColumn || layout[index - 1] === CellType.BLACK) {
-    return layout[index] !== CellType.BLACK;
+    return (
+      layout[index] !== CellType.BLACK &&
+      isInBounds(index + 1, layout) &&
+      areInSameRow(index, index + 1, width) &&
+      layout[index + 1] !== CellType.BLACK
+    );
   }
   return false;
 }
@@ -70,7 +80,7 @@ function areInSameColumn(a: number, b: number, width: number) {
   return a % width === b % width;
 }
 
-function isInBounds(index: number, layout: Array<CellType>): boolean {
+function isInBounds(index: number, layout: ReadonlyArray<CellType>): boolean {
   return index >= 0 && index < layout.length;
 }
 

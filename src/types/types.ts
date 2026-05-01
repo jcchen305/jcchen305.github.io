@@ -46,8 +46,8 @@ export type Clues = {
 };
 
 export type ActiveClues = {
-  across: Clue;
-  down: Clue;
+  across: Clue | null;
+  down: Clue | null;
 };
 
 export type PlayState = {

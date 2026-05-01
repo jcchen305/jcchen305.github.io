@@ -6,10 +6,11 @@ import {
 } from "../helpers/clue_helpers.ts";
 import { getCellClueIdentifiers } from "../helpers/grid_helpers.ts";
 import { parseLayoutToInitialUserLayout } from "../helpers/parse_helpers.ts";
-import type {
-  UserGridState,
-  PlayState,
-  GridDefinition,
+import {
+  type UserGridState,
+  type PlayState,
+  type GridDefinition,
+  CellType,
 } from "../types/types.ts";
 import { Banner } from "./Banner.tsx";
 import { ClueBanner } from "./ClueBanner.tsx";
@@ -30,7 +31,9 @@ export function Puzzle({
   );
   const [userDirection, setUserDirection] =
     useState<UserGridState["direction"]>("across");
-  const [userIndex, setUserIndex] = useState(0);
+  const [userIndex, setUserIndex] = useState(() =>
+    gridDefinition.layout.findIndex((cell) => cell !== CellType.BLACK),
+  );
   const userGridState: UserGridState = useMemo(
     () => ({
       layout: userLayout,

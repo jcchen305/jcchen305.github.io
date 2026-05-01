@@ -15,10 +15,10 @@ export function ClueBanner({
   return (
     <div className="flex justify-start w-full text-left p-2 border border-blue-500 dark:border-blue-700 rounded-sm bg-blue-50 dark:bg-blue-900 text-black dark:text-white">
       <span className="font-extrabold flex mx-2">
-        {activeClue.clueNumber}
+        {activeClue?.clueNumber}
         {userGridState.direction === "across" ? "A" : "D"}
       </span>
-      <div className="">{activeClue.clue}</div>
+      <div className="">{activeClue?.clue}</div>
     </div>
   );
 }

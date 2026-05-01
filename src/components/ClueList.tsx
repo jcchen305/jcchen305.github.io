@@ -55,22 +55,22 @@ function ClueDisplay({
   const clueState = useMemo(() => {
     if (userDirection === "across") {
       if (direction === "across") {
-        return clueNumber === across.clueNumber ? "primary" : null;
+        return clueNumber === across?.clueNumber ? "primary" : null;
       } else {
-        return clueNumber === down.clueNumber ? "secondary" : null;
+        return clueNumber === down?.clueNumber ? "secondary" : null;
       }
     } else {
       if (direction === "down") {
-        return clueNumber === down.clueNumber ? "primary" : null;
+        return clueNumber === down?.clueNumber ? "primary" : null;
       } else {
-        return clueNumber === across.clueNumber ? "secondary" : null;
+        return clueNumber === across?.clueNumber ? "secondary" : null;
       }
     }
   }, [
-    across.clueNumber,
+    across?.clueNumber,
     clueNumber,
     direction,
-    down.clueNumber,
+    down?.clueNumber,
     userDirection,
   ]);
 
